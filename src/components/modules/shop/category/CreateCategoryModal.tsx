@@ -19,8 +19,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createCategory } from "@/services/Category";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const CreateCategoryModal = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -33,7 +35,18 @@ const CreateCategoryModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      console.log(data);
+      const formData = new FormData();
+      formData.append("data", JSON.stringify(data));
+      formData.append("icon", imageFiles[0] as File);
+
+      const res = await createCategory(formData);
+      console.log(res);
+
+      if (res?.success) {
+        toast.success(res?.message);
+      } else {
+        toast.error(res?.message);
+      }
     } catch (err: any) {
       console.error(err);
     }
@@ -64,26 +77,24 @@ const CreateCategoryModal = () => {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 items-center">
-                <div className="col-span-4 md:col-span-3">
-                  <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Services Offered</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            className="h-36"
-                            {...field}
-                            value={field.value || ""}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+              <div className="flex items-center justify-between mt-5">
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Services Offered</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          className="h-36 w-72"
+                          {...field}
+                          value={field.value || ""}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 {imagePreview.length > 0 ? (
                   <NMImagePreviewer
@@ -97,7 +108,7 @@ const CreateCategoryModal = () => {
                     <MNImageUploader
                       setImageFiles={setImageFiles}
                       setImagePreview={setImagePreview}
-                      label="Upload Logo"
+                      label="Upload Icon"
                     />
                   </div>
                 )}
