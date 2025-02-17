@@ -12,17 +12,45 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createShop } from "@/services/Shop";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const CreateShopForm = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+
   const form = useForm({});
 
+  const {
+    formState: { isSubmitting },
+  } = form;
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const servicesOffered = data?.servicesOffered
+      .split(",")
+      .map((service: string) => service.trim())
+      .filter((service: string) => service !== " ");
+
+    const modifiedData = {
+      ...data,
+      servicesOffered: servicesOffered,
+      establishedYear: Number(data?.establishedYear),
+    };
+
     try {
-      console.log(data);
+      const formData = new FormData();
+      formData.append("data", JSON.stringify(modifiedData));
+      formData.append("logo", imageFiles[0] as File);
+
+      const res = await createShop(formData);
+
+      console.log(res);
+
+      if (res.success) {
+        toast.success(res.message);
+      }
     } catch (err: any) {
       console.error(err);
     }
@@ -197,23 +225,6 @@ const CreateShopForm = () => {
               />
             </div>
 
-            {/* {imagePreview.length > 0 ? (
-              <ImagePreviewer
-                setImageFiles={setImageFiles}
-                imagePreview={imagePreview}
-                setImagePreview={setImagePreview}
-                className="mt-8"
-              />
-            ) : (
-              <div className="mt-8">
-                <NMImageUploader
-                  setImageFiles={setImageFiles}
-                  setImagePreview={setImagePreview}
-                  label="Upload Logo"
-                />
-              </div>
-            )} */}
-
             {imagePreview.length > 0 ? (
               <NMImagePreviewer
                 setImageFiles={setImageFiles}
@@ -233,7 +244,7 @@ const CreateShopForm = () => {
           </div>
 
           <Button type="submit" className="mt-5 w-full">
-            Submit
+            {isSubmitting ? "Creating...." : "Create"}
           </Button>
         </form>
       </Form>
