@@ -64,19 +64,6 @@ const CreateBrandModal = () => {
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem className="mt-3">
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input type="name" {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <div className="flex justify-center mt-5">
                 {imagePreview.length > 0 ? (
                   <NMImagePreviewer
@@ -96,9 +83,27 @@ const CreateBrandModal = () => {
                 )}
               </div>
 
-              <Button className="w-full mt-5" type="submit">
-                {isSubmitting ? "Creating... " : "Create"}
-              </Button>
+              <div className="flex items-center justify-between space-x-3 mt-10">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <Input
+                          type="name"
+                          {...field}
+                          value={field.value || ""}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit">
+                  {isSubmitting ? "Creating... " : "Create"}
+                </Button>
+              </div>
             </form>
           </Form>
         </DialogContent>
