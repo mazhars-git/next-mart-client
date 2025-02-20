@@ -77,25 +77,7 @@ const CreateBrandModal = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex items-center justify-between mt-5">
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Services Offered</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          className="h-36 w-72"
-                          {...field}
-                          value={field.value || ""}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
+              <div className="flex justify-center mt-5">
                 {imagePreview.length > 0 ? (
                   <NMImagePreviewer
                     setImageFiles={setImageFiles}
