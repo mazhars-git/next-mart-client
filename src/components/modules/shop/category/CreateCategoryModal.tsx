@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createCategory } from "@/services/Category";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -55,7 +56,9 @@ const CreateCategoryModal = () => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Create Category</Button>
+          <Button>
+            Create Category <Plus />
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

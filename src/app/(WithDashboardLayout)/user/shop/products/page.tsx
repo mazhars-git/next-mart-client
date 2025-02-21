@@ -1,7 +1,9 @@
+import ManageProducts from "@/components/modules/shop/product";
+
 const ManageProductsPage = () => {
   return (
     <div>
-      <h1>All Products here</h1>
+      <ManageProducts />
     </div>
   );
 };
