@@ -37,6 +37,7 @@ import { getAllCategories } from "@/services/Category";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { getAllBrands } from "@/services/Brand";
+import { addProduct } from "@/services/Product";
 
 export default function AddProductsForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -123,7 +124,7 @@ export default function AddProductsForm() {
         (specification[item.key] = item.value)
     );
 
-    console.log({ availableColors, keyFeatures, specification });
+    // console.log({ availableColors, keyFeatures, specification });
 
     const modifiedData = {
       ...data,
@@ -143,6 +144,7 @@ export default function AddProductsForm() {
     }
     try {
       const res = await addProduct(formData);
+      console.log(res);
 
       if (res.success) {
         toast.success(res.message);
