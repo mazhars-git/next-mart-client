@@ -14,12 +14,10 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { createCategory } from "@/services/Category";
+import { createBrand } from "@/services/Brand";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -40,7 +38,7 @@ const CreateBrandModal = () => {
       formData.append("data", JSON.stringify(data));
       formData.append("icon", imageFiles[0] as File);
 
-      const res = await createCategory(formData);
+      const res = await createBrand(formData);
       console.log(res);
 
       if (res?.success) {
