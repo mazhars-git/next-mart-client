@@ -6,6 +6,9 @@ import Image from "next/image";
 import { Plus, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
+import DiscountModal from "./DiscountModal";
 
 type TCategoriesProps = {
   categories: ICategory[];
@@ -13,11 +16,44 @@ type TCategoriesProps = {
 
 const ManageProducts = ({ categories }: TCategoriesProps) => {
   const router = useRouter();
+
+  const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
   const handleDelete = (data: ICategory) => {
     console.log(data);
   };
 
   const columns: ColumnDef<ICategory>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => {
+            if (value) {
+              setSelectedIds((prev) => [...prev, row.original._id]);
+            } else {
+              setSelectedIds(
+                selectedIds.filter((id) => id !== row.original._id)
+              );
+            }
+            row.toggleSelected(!!value);
+          }}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     {
       accessorKey: "name",
       header: () => <div>Category Name</div>,
@@ -76,6 +112,7 @@ const ManageProducts = ({ categories }: TCategoriesProps) => {
           >
             Add Product <Plus />
           </Button>
+          <DiscountModal selectedIds={selectedIds} />
         </div>
       </div>
       <NMTable data={categories} columns={columns} />

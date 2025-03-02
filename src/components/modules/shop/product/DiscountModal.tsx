@@ -1,0 +1,87 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Plus } from "lucide-react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+type TModalProps = {
+  selectedIds: string[];
+};
+
+const DiscountModal = ({ selectedIds }: TModalProps) => {
+  const form = useForm();
+  const {
+    formState: { isSubmitting },
+  } = form;
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const modifiedData = {
+        products: [...selectedIds],
+        discountPercentage: parseFloat(data?.discountPercentage),
+      };
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
+  return (
+    <div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button disabled={!selectedIds?.length} size="sm">
+            Add Flash Sale <Plus />{" "}
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add Flash Sale</DialogTitle>
+          </DialogHeader>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="flex items-center justify-between space-x-3 mt-10">
+                <FormField
+                  control={form.control}
+                  name="discountPercentage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          value={field.value || ""}
+                          className="rounded-sm w-56"
+                          placeholder="Discount Percentage"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit">
+                  {isSubmitting ? "Adding... " : "Add"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
+export default DiscountModal;
