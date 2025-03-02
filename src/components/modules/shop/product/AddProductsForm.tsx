@@ -110,11 +110,11 @@ export default function AddProductsForm() {
   }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const availableColors = data.availableColors.map(
+    const availableColors = data.availableColors?.map(
       (color: { value: string }) => color.value
     );
 
-    const keyFeatures = data.keyFeatures.map(
+    const keyFeatures = data.keyFeatures?.map(
       (feature: { value: string }) => feature.value
     );
 
@@ -214,7 +214,7 @@ export default function AddProductsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
+                      {categories?.map((category) => (
                         <SelectItem key={category?._id} value={category?._id}>
                           {category?.name}
                         </SelectItem>
@@ -242,7 +242,7 @@ export default function AddProductsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {brands.map((brand) => (
+                      {brands?.map((brand) => (
                         <SelectItem key={brand?._id} value={brand?._id}>
                           {brand?.name}
                         </SelectItem>
@@ -336,7 +336,7 @@ export default function AddProductsForm() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {colorFields.map((colorField, index) => (
+              {colorFields?.map((colorField, index) => (
                 <div key={colorField.id}>
                   <FormField
                     control={form.control}
@@ -370,7 +370,7 @@ export default function AddProductsForm() {
             </div>
 
             <div className="my-5">
-              {featureFields.map((featureField, index) => (
+              {featureFields?.map((featureField, index) => (
                 <div key={featureField.id}>
                   <FormField
                     control={form.control}
@@ -403,7 +403,7 @@ export default function AddProductsForm() {
               </Button>
             </div>
 
-            {specFields.map((specField, index) => (
+            {specFields?.map((specField, index) => (
               <div
                 key={specField.id}
                 className="grid grid-cols-1 gap-4 md:grid-cols-2 my-5"

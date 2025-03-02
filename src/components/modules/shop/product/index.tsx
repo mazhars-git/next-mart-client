@@ -25,16 +25,16 @@ const ManageProducts = ({ categories }: TCategoriesProps) => {
   const columns: ColumnDef<ICategory>[] = [
     {
       id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
+      // header: ({ table }) => (
+      //   <Checkbox
+      //     checked={
+      //       table.getIsAllPageRowsSelected() ||
+      //       (table.getIsSomePageRowsSelected() && "indeterminate")
+      //     }
+      //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+      //     aria-label="Select all"
+      //   />
+      // ),
       cell: ({ row }) => (
         <Checkbox
           checked={row.getIsSelected()}
@@ -112,7 +112,10 @@ const ManageProducts = ({ categories }: TCategoriesProps) => {
           >
             Add Product <Plus />
           </Button>
-          <DiscountModal selectedIds={selectedIds} />
+          <DiscountModal
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
+          />
         </div>
       </div>
       <NMTable data={categories} columns={columns} />

@@ -15,25 +15,36 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { addFlashSale } from "@/services/FlashSale";
 import { Plus } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type TModalProps = {
   selectedIds: string[];
+  setSelectedIds: Dispatch<SetStateAction<string[] | []>>;
 };
 
-const DiscountModal = ({ selectedIds }: TModalProps) => {
+const DiscountModal = ({ selectedIds, setSelectedIds }: TModalProps) => {
   const form = useForm();
   const {
     formState: { isSubmitting },
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const modifiedData = {
+      products: [...selectedIds],
+      discountPercentage: parseFloat(data?.discountPercentage),
+    };
     try {
-      const modifiedData = {
-        products: [...selectedIds],
-        discountPercentage: parseFloat(data?.discountPercentage),
-      };
+      const res = await addFlashSale(modifiedData);
+      if (res.success) {
+        toast.success(res.message);
+        setSelectedIds([]);
+      } else {
+        toast.error(res.message);
+      }
     } catch (err: any) {
       console.error(err);
     }

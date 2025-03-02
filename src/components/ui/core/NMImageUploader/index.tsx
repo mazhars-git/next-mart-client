@@ -16,7 +16,7 @@ const MNImageUploader = ({
   setImagePreview,
 }: TImageUploader) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files![0];
+    const file = event?.target?.files![0];
     setImageFiles((prev) => [...prev, file]);
 
     if (file) {
