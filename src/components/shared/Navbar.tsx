@@ -16,6 +16,7 @@ import { logout } from "@/services/AuthService";
 import { useUser } from "@/context/UserContext";
 import { usePathname, useRouter } from "next/navigation";
 import { protectedRoutes } from "@/constants";
+import Logo from "@/assets/svgs/Logo";
 
 const Navbar = () => {
   const { user, setIsLoading } = useUser();
@@ -32,7 +33,11 @@ const Navbar = () => {
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-5">
-        <h1 className="text-2xl font-black">Next..Mart</h1>
+        <Link href="/">
+          <h1 className="text-2xl font-black">
+            <Logo /> Next Mart
+          </h1>
+        </Link>
         <div className="max-w-md flex-grow">
           <input
             type="text"
@@ -65,7 +70,9 @@ const Navbar = () => {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>My Shop</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem

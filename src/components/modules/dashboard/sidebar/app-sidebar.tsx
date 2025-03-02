@@ -15,6 +15,7 @@ import {
 import { NavMain } from "./nav-main";
 import Link from "next/link";
 import { NavUser } from "./nab-user";
+import Logo from "@/assets/svgs/Logo";
 // import Logo from "@/app/assets/svgs/Logo";
 
 const data = {
@@ -68,10 +69,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <div className="flex items-center justify-center">
-                  <h1 className="text-4xl font-bold">NMart</h1>
+                  <Logo />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <h2 className="font-bold text-xl">NextMart</h2>
+                  <h2 className="font-bold text-xl">Next Mart</h2>
                 </div>
               </Link>
             </SidebarMenuButton>
