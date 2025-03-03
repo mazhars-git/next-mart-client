@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Bot, Settings, SquareTerminal } from "lucide-react";
+import { LucideGrid2X2Plus, LucideStore, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -23,13 +23,13 @@ const data = {
     {
       title: "Dashboard",
       url: "/user/dashboard",
-      icon: SquareTerminal,
+      icon: LucideGrid2X2Plus,
       isActive: true,
     },
     {
       title: "Shop",
       url: "/user/shop/products",
-      icon: Bot,
+      icon: LucideStore,
       items: [
         {
           title: "Manage Products",
