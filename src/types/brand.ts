@@ -1,5 +1,9 @@
 export interface IBrand {
   _id: string;
   name: string;
-  icon: string;
+  logo: string;
+  isActive: boolean;
+  createdBy: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

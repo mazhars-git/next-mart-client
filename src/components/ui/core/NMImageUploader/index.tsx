@@ -1,3 +1,4 @@
+"use client";
 import { Dispatch, SetStateAction } from "react";
 import { Input } from "../../input";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,7 @@ const MNImageUploader = ({
 
       reader.readAsDataURL(file);
     }
-    event.target.value = " ";
+    event.target.value = "";
   };
   return (
     <div className={cn("flex flex-col items-center w-full gap-4", className)}>

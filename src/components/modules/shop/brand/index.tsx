@@ -1,29 +1,25 @@
 "use client";
-import { ICategory } from "@/types";
-import CreateCategoryModal from "./CreateCategoryModal";
+import { IBrand } from "@/types";
 import { NMTable } from "@/components/ui/core/NMTable";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { Trash } from "lucide-react";
 import CreateBrandModal from "./CreateBrandModel";
 
-type TCategoriesProps = {
-  brands: ICategory[];
-};
-
-const ManageBrands = ({ brands }: TCategoriesProps) => {
-  const handleDelete = (data: ICategory) => {
+const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
+  console.log(brands);
+  const handleDelete = (data: IBrand) => {
     console.log(data);
   };
 
-  const columns: ColumnDef<ICategory>[] = [
+  const columns: ColumnDef<IBrand>[] = [
     {
       accessorKey: "name",
-      header: () => <div>Category Name</div>,
+      header: () => <div>Brand Name</div>,
       cell: ({ row }) => {
         <div className="flex items-center space-x-3">
           <Image
-            src={row.original.icon}
+            src={row.original.logo}
             alt={row.original.name}
             width={40}
             height={40}
@@ -70,7 +66,7 @@ const ManageBrands = ({ brands }: TCategoriesProps) => {
         <h1 className="text-2xl font-bold">Manage Brands</h1>
         <CreateBrandModal />
       </div>
-      <NMTable data={brands} columns={columns} />
+      <NMTable columns={columns} data={brands || []} />
     </div>
   );
 };
