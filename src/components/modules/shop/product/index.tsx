@@ -1,5 +1,5 @@
 "use client";
-import { ICategory } from "@/types";
+import { ICategory, IMeta, IProduct } from "@/types";
 import { NMTable } from "@/components/ui/core/NMTable";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
@@ -10,14 +10,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import DiscountModal from "./DiscountModal";
 
-type TCategoriesProps = {
-  categories: ICategory[];
-};
-
-const ManageProducts = ({ categories }: TCategoriesProps) => {
+const ManageProducts = ({
+  products,
+  meta,
+}: {
+  products: IProduct[];
+  meta: IMeta;
+}) => {
   const router = useRouter();
 
   const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
+
   const handleDelete = (data: ICategory) => {
     console.log(data);
   };
@@ -118,7 +121,7 @@ const ManageProducts = ({ categories }: TCategoriesProps) => {
           />
         </div>
       </div>
-      <NMTable data={categories} columns={columns} />
+      <NMTable data={products || []} columns={columns} />
     </div>
   );
 };
