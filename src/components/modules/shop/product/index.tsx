@@ -21,11 +21,11 @@ const ManageProducts = ({
 
   const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
-  const handleDelete = (data: ICategory) => {
+  const handleDelete = (data: IProduct) => {
     console.log(data);
   };
 
-  const columns: ColumnDef<ICategory>[] = [
+  const columns: ColumnDef<IProduct>[] = [
     {
       id: "select",
       // header: ({ table }) => (
@@ -59,11 +59,11 @@ const ManageProducts = ({
     },
     {
       accessorKey: "name",
-      header: () => <div>Category Name</div>,
+      header: () => <div>Product Name</div>,
       cell: ({ row }) => {
         <div className="flex items-center space-x-3">
           <Image
-            src={row.original.icon}
+            src={row.original.imageUrls[0]}
             alt={row.original.name}
             width={40}
             height={40}
