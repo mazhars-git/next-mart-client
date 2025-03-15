@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import DiscountModal from "./DiscountModal";
+import TablePagination from "@/components/ui/core/NMTable/TablePagination";
 
 const ManageProducts = ({
   products,
@@ -122,6 +123,7 @@ const ManageProducts = ({
         </div>
       </div>
       <NMTable data={products || []} columns={columns} />
+      <TablePagination />
     </div>
   );
 };
