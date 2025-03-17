@@ -3,21 +3,22 @@ import { Button } from "../../button";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-const TablePagination = () => {
+const TablePagination = ({ totalPage }: { totalPage: number }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const totalPage = 10;
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      router.push(`${pathname}?page=${currentPage - 1}`);
     }
   };
   const handleNext = () => {
     if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
+      router.push(`${pathname}?page=${currentPage + 1}`);
     }
   };
   return (

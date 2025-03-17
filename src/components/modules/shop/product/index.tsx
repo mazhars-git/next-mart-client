@@ -123,7 +123,7 @@ const ManageProducts = ({
         </div>
       </div>
       <NMTable data={products || []} columns={columns} />
-      <TablePagination />
+      <TablePagination totalPage={meta?.totalPage} />
     </div>
   );
 };
