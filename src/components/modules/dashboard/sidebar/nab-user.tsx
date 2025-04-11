@@ -19,7 +19,7 @@ import {
 import { useUser } from "@/context/UserContext";
 import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/services/AuthService";
-import { protectedRoutes } from "@/constants";
+import { protectedRoutes } from "@/contents";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
