@@ -75,7 +75,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="pl-0 pb-2">
         <div className="flex gap-2 items-center justify-between">
           <Button
             onClick={() => handleAddProduct(product)}

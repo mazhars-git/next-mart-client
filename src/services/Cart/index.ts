@@ -18,7 +18,11 @@ export const createOrder = async (order: IOrder) => {
     return Error(error);
   }
 };
-export const addCoupon = async ({ shopId, subTotal, couponCode }: ICoupon) => {
+export const addCoupon = async (
+  shopId: string,
+  subTotal: number,
+  couponCode: string
+) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/coupon/${couponCode}`,

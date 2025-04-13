@@ -24,13 +24,7 @@ export default function Coupon() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const couponData = {
-        orderAmount: subTotal,
-        shopId,
-        couponCode: data.coupon,
-      };
-      console.log(couponData);
-      const res = await addCoupon(couponData);
+      const res = await addCoupon(data.couponCode, subTotal, shopId);
     } catch (error: any) {
       console.log(error);
       toast.error(error.message);
