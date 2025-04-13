@@ -10,6 +10,10 @@ import { useAppSelector } from "@/redux/hooks";
 import { shopSelector, subTotalSelector } from "@/redux/features/cartSlice";
 import { addCoupon } from "@/services/Cart";
 
+// -----------------------------------------------------------
+// remaining module: 44 (video no: 5, 6, 7) optional ----------------
+// -------------------------------------------------------------------
+
 export default function Coupon() {
   const subTotal = useAppSelector(subTotalSelector);
   const shopId = useAppSelector(shopSelector);

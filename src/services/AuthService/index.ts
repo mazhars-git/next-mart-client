@@ -16,6 +16,7 @@ export const registerUser = async (userData: FieldValues) => {
     const result = await res.json();
     if (result.success) {
       (await cookies()).set("accessToken", result.data.accessToken);
+      (await cookies()).set("refreshToken", result?.data?.refreshToken);
     }
 
     return result;
@@ -39,6 +40,7 @@ export const loginUser = async (userData: FieldValues) => {
 
     if (result.success) {
       (await cookies()).set("accessToken", result?.data?.accessToken);
+      (await cookies()).set("refreshToken", result?.data?.refreshToken);
     }
 
     return result;
@@ -80,4 +82,24 @@ export const reCaptchaTokenVerification = async (token: string) => {
 
 export const logout = async () => {
   (await cookies()).delete("accessToken");
+};
+
+export const getNewToken = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/refresh-token`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("refreshToken")!.value,
+        },
+      }
+    );
+
+    return res.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return Error(error);
+  }
 };
